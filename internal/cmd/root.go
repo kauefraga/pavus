@@ -82,7 +82,7 @@ func getRootCmd() *cobra.Command {
 				os.Exit(1)
 			}
 
-			server.ServeAndWatch(string(md))
+			server.ServeAndWatch(md)
 		},
 	}
 }
