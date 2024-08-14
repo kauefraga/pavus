@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 	"regexp"
 
+	"github.com/kauefraga/pavus/internal/server"
 	"github.com/spf13/cobra"
 )
 
@@ -81,7 +82,7 @@ func getRootCmd() *cobra.Command {
 				os.Exit(1)
 			}
 
-			fmt.Println(string(md))
+			server.ServeAndWatch(string(md))
 		},
 	}
 }
