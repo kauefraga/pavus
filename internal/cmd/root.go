@@ -2,59 +2,12 @@ package cmd
 
 import (
 	"fmt"
-	"io/fs"
-	"log"
 	"os"
-	"path/filepath"
-	"regexp"
 
+	"github.com/kauefraga/pavus/internal/lib"
 	"github.com/kauefraga/pavus/internal/server"
 	"github.com/spf13/cobra"
 )
-
-// Verify if a file is a markdown one
-func isMarkdown(filename string) bool {
-	isMarkdown, err := regexp.MatchString(`^.*\.(md)$`, filename)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	return isMarkdown
-}
-
-// Verify if there is a markdown file and return the path of the first one
-func findFirstMarkdownFile() string {
-	var markdownPath string
-
-	err := filepath.Walk(".", func(path string, info fs.FileInfo, err error) error {
-		if isMarkdown(info.Name()) {
-			markdownPath = path
-			return filepath.SkipAll
-		}
-
-		return err
-	})
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	return markdownPath
-}
-
-func getMarkdownPath(args []string) string {
-	if len(args) > 0 {
-		info, err := os.Stat(args[0])
-		if err != nil {
-			return findFirstMarkdownFile()
-		}
-
-		if isMarkdown(info.Name()) {
-			return args[0]
-		}
-	}
-
-	return findFirstMarkdownFile()
-}
 
 func getRootCmd() *cobra.Command {
 	return &cobra.Command{
@@ -69,7 +22,7 @@ func getRootCmd() *cobra.Command {
 			 * - serve the ones with priority (like readmes)
 			 */
 
-			mdPath := getMarkdownPath(args)
+			mdPath := lib.GetMarkdownPath(args)
 
 			if mdPath == "" {
 				fmt.Println("Error: there is no markdown to serve")
