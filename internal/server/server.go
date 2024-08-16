@@ -19,11 +19,6 @@ import (
 //go:embed previewer/layout.html
 var layout embed.FS
 
-// find other way to get assets
-//
-//go:embed previewer/assets/icon.png
-var icon []byte
-
 type LayoutData struct {
 	Content template.HTML
 }
@@ -46,12 +41,6 @@ func ServeAndWatch(md []byte) {
 		fmt.Println("error: failed to parse the layout template file")
 		os.Exit(1)
 	}
-
-	// find other way to get assets
-	http.HandleFunc("/static/icon.png", func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type", "image/png")
-		w.Write(icon)
-	})
 
 	data := LayoutData{
 		Content: mdToHTML(md),
