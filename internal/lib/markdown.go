@@ -1,11 +1,16 @@
 package lib
 
 import (
+	"html/template"
 	"io/fs"
 	"log"
 	"os"
 	"path/filepath"
 	"regexp"
+
+	"github.com/gomarkdown/markdown"
+	"github.com/gomarkdown/markdown/html"
+	"github.com/gomarkdown/markdown/parser"
 )
 
 // Verify if a file is a markdown one
@@ -52,4 +57,16 @@ func GetMarkdownPath(args []string) string {
 	}
 
 	return findFirstMarkdownFile()
+}
+
+func MdToHTML(md []byte) template.HTML {
+	extensions := parser.CommonExtensions | parser.AutoHeadingIDs | parser.NoEmptyLineBeforeBlock
+	p := parser.NewWithExtensions(extensions)
+	doc := p.Parse(md)
+
+	htmlFlags := html.CommonFlags | html.HrefTargetBlank
+	opts := html.RendererOptions{Flags: htmlFlags}
+	renderer := html.NewRenderer(opts)
+
+	return template.HTML(markdown.Render(doc, renderer))
 }
