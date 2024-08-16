@@ -16,8 +16,13 @@ import (
 // TODO: add styles (css)
 // TODO: watch and reflect markdown changes
 
-//go:embed layout.html
-var layoutTemplate embed.FS
+//go:embed previewer/layout.html
+var layout embed.FS
+
+// find other way to get assets
+//
+//go:embed previewer/assets/icon.png
+var icon []byte
 
 type LayoutData struct {
 	Content template.HTML
@@ -36,18 +41,24 @@ func mdToHTML(md []byte) template.HTML {
 }
 
 func ServeAndWatch(md []byte) {
-	tmpl, err := template.ParseFS(layoutTemplate, "layout.html")
+	tmpl, err := template.ParseFS(layout, "previewer/layout.html")
 	if err != nil {
 		fmt.Println("error: failed to parse the layout template file")
 		os.Exit(1)
 	}
+
+	// find other way to get assets
+	http.HandleFunc("/static/icon.png", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "image/png")
+		w.Write(icon)
+	})
 
 	data := LayoutData{
 		Content: mdToHTML(md),
 	}
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		err = tmpl.Execute(w, data)
+		err := tmpl.Execute(w, data)
 		if err != nil {
 			fmt.Println("error:", err)
 		}
