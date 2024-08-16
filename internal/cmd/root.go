@@ -22,7 +22,7 @@ func isMarkdown(filename string) bool {
 	return isMarkdown
 }
 
-// Verify if there is a markdown file nearby (same level or one level depth)
+// Verify if there is a markdown file and return the path of the first one
 func findFirstMarkdownFile() string {
 	var markdownPath string
 
@@ -41,11 +41,27 @@ func findFirstMarkdownFile() string {
 	return markdownPath
 }
 
+func getMarkdownPath(args []string) string {
+	if len(args) > 0 {
+		info, err := os.Stat(args[0])
+		if err != nil {
+			return findFirstMarkdownFile()
+		}
+
+		if isMarkdown(info.Name()) {
+			return args[0]
+		}
+	}
+
+	return findFirstMarkdownFile()
+}
+
 func getRootCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "pavus",
-		Short: "The next-gen markdown tool",
-		Args:  cobra.MaximumNArgs(1),
+		Use:     "pavus",
+		Short:   "The next-gen markdown tool",
+		Example: "pavus\npavus path/to/markdown.md",
+		Args:    cobra.MaximumNArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
 			/* options
 			 * - serve the first markdown (current)
@@ -53,32 +69,17 @@ func getRootCmd() *cobra.Command {
 			 * - serve the ones with priority (like readmes)
 			 */
 
-			mdPath := findFirstMarkdownFile()
+			mdPath := getMarkdownPath(args)
 
-			if len(args) == 0 && mdPath == "" {
+			if mdPath == "" {
+				fmt.Println("Error: there is no markdown to serve")
 				cmd.Help()
 				os.Exit(0)
 			}
 
-			// if there is no file, check for a file path in the args
-			if mdPath == "" {
-				info, err := os.Stat(args[0])
-				if err != nil {
-					fmt.Println("error: there is no markdown file to serve")
-					os.Exit(1)
-				}
-
-				if !isMarkdown(info.Name()) {
-					fmt.Println("error: the file is not a markdown")
-					os.Exit(1)
-				}
-
-				mdPath = args[0]
-			}
-
 			md, err := os.ReadFile(mdPath)
 			if err != nil {
-				fmt.Println("error: failed to read the markdown file")
+				fmt.Println("Error: failed to read the markdown file")
 				os.Exit(1)
 			}
 
