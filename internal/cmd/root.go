@@ -30,13 +30,7 @@ func getRootCmd() *cobra.Command {
 				os.Exit(0)
 			}
 
-			md, err := os.ReadFile(mdPath)
-			if err != nil {
-				fmt.Println("Error: failed to read the markdown file")
-				os.Exit(1)
-			}
-
-			server.ServeAndWatch(md)
+			server.ServeAndWatch(mdPath)
 		},
 	}
 }

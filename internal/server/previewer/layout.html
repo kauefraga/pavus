@@ -9,5 +9,19 @@
   <article>
     {{ .Content }}
   </article>
+
+  <script>
+    const ws = new WebSocket('ws://localhost:3000/ws');
+
+    ws.addEventListener('open', function(event) {
+      console.log('Connected')
+    })
+    ws.addEventListener('message', function(event) {
+      const message = JSON.parse(event.data)
+      if (message === 'reload') {
+        window.location.reload();
+      }
+    })
+  </script>
 </body>
 </html>
