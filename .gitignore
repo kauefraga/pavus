@@ -1,2 +1,6 @@
+# markdowns, except README
 *.md
 !README.md
+
+# build output
+bin/
