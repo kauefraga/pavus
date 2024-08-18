@@ -13,6 +13,11 @@ Need to preview your markdown? Need templates for your README? It got your back!
 ![GitHub License](https://img.shields.io/github/license/kauefraga/pavus)
 ![GitHub Last Commit](https://img.shields.io/github/last-commit/kauefraga/pavus/main)
 
+[Getting started](#usage) •
+[Installation](#installation) •
+[Configuration](#configuration) •
+[Pix me a coffee](#pix-me-a-coffee)
+
 </div>
 
 ## Key Features
@@ -20,6 +25,25 @@ Need to preview your markdown? Need templates for your README? It got your back!
 - Pleasant DX: intuitive, descriptive messages and colorful outputs
 - Preview your markdown with hot reloading out-of-the-box
 - Just a single lightweight binary with all the batteries included
+<!--
+- Configurable, but awesome defaults
+- Templates, so you don't need to come with the new idea
+-->
+
+> [!IMPORTANT]
+> Work in progress... Just wait!
+
+## Usage
+
+### Installation
+
+### Configuration
+
+## Mastering the CLI
+
+Like in <a href="https://github.com/kauefraga/ruke#mastering-the-cli" target="_blank">Ruke</a>, here you will find all about the command-line interface (available commands, descriptions, flags and aliases).
+
+## Roadmap
 
 ## Contributing
 
