@@ -12,7 +12,6 @@ import (
 
 // TODO: shutdown gracefully
 // TODO: add styles (css)
-// TODO: watch and reflect markdown changes
 
 //go:embed previewer/layout.html
 var layout embed.FS
@@ -31,14 +30,8 @@ func ServeAndWatch(mdPath string) {
 	}
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		md, err := os.ReadFile(mdPath)
-		if err != nil {
-			fmt.Println("Error: failed to read the markdown file")
-			os.Exit(1)
-		}
-
 		data := LayoutData{
-			Content: lib.MdToHTML(md),
+			Content: lib.MdToHTML(lib.ReadMarkdown(mdPath)),
 		}
 
 		err = tmpl.Execute(w, data)

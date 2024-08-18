@@ -2,11 +2,13 @@ package server
 
 import (
 	"fmt"
-	"log"
+	"html/template"
 	"net/http"
+	"os"
 
 	"github.com/fsnotify/fsnotify"
 	"github.com/gorilla/websocket"
+	"github.com/kauefraga/pavus/internal/lib"
 )
 
 var upgrader = websocket.Upgrader{
@@ -16,19 +18,25 @@ var upgrader = websocket.Upgrader{
 
 var clients = make(map[*websocket.Conn]bool)
 
+type Message struct {
+	Type    string        `json:"type"`
+	Content template.HTML `json:"content"`
+}
+
 func newWebSocketHandler(mdPath string) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
-		ws, err := upgrader.Upgrade(w, r, nil)
+		socket, err := upgrader.Upgrade(w, r, nil)
 		if err != nil {
-			log.Fatalln("Error: failed to upgrade connection (websocket)")
+			fmt.Println("Error: failed to upgrade connection (websocket)")
+			os.Exit(1)
 		}
-		defer ws.Close()
+		defer socket.Close()
 
-		clients[ws] = true
+		clients[socket] = true
 
 		watcher, err := fsnotify.NewWatcher()
 		if err != nil {
-			log.Fatal(err)
+			fmt.Println("Error:", err)
 		}
 		defer watcher.Close()
 
@@ -46,21 +54,29 @@ func newWebSocketHandler(mdPath string) func(w http.ResponseWriter, r *http.Requ
 
 					if event.Has(fsnotify.Write) {
 						fmt.Println("[pavus] reloading due to changes...")
-						ws.WriteJSON("reload")
+
+						message := Message{
+							Type:    "reload",
+							Content: lib.MdToHTML(lib.ReadMarkdown(mdPath)),
+						}
+
+						socket.WriteJSON(message)
 					}
 
 				case err, ok := <-watcher.Errors:
 					if !ok {
 						return
 					}
-					log.Println("error:", err)
+					fmt.Println("error:", err)
+					os.Exit(1)
 				}
 			}
 		}()
 
 		err = watcher.Add(mdPath)
 		if err != nil {
-			log.Fatal(err)
+			fmt.Println(err)
+			os.Exit(1)
 		}
 
 		<-done

@@ -3,25 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pavus Previewer</title>
+  <title>Pavus</title>
 </head>
 <body>
-  <article>
+  <article id="content">
     {{ .Content }}
   </article>
 
   <script>
     const ws = new WebSocket('ws://localhost:3000/ws');
+    const content = document.getElementById('content') ?? document.createElement('article');
 
     ws.addEventListener('open', function(event) {
       console.log('Connected')
-    })
+    });
+
     ws.addEventListener('message', function(event) {
-      const message = JSON.parse(event.data)
-      if (message === 'reload') {
-        window.location.reload();
+      const message = JSON.parse(event.data);
+
+      if (message.type === 'reload') {
+        content.innerHTML = message.content;
       }
-    })
+    });
   </script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package lib
 
 import (
+	"fmt"
 	"html/template"
 	"io/fs"
 	"log"
@@ -69,4 +70,14 @@ func MdToHTML(md []byte) template.HTML {
 	renderer := html.NewRenderer(opts)
 
 	return template.HTML(markdown.Render(doc, renderer))
+}
+
+func ReadMarkdown(mdPath string) []byte {
+	md, err := os.ReadFile(mdPath)
+	if err != nil {
+		fmt.Println("Error: failed to read the markdown file")
+		os.Exit(1)
+	}
+
+	return md
 }
