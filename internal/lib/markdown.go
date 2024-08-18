@@ -12,6 +12,7 @@ import (
 	"github.com/gomarkdown/markdown"
 	"github.com/gomarkdown/markdown/html"
 	"github.com/gomarkdown/markdown/parser"
+	"github.com/microcosm-cc/bluemonday"
 )
 
 // Verify if a file is a markdown one
@@ -69,7 +70,9 @@ func MdToHTML(md []byte) template.HTML {
 	opts := html.RendererOptions{Flags: htmlFlags}
 	renderer := html.NewRenderer(opts)
 
-	return template.HTML(markdown.Render(doc, renderer))
+	safeHtml := bluemonday.UGCPolicy().SanitizeBytes(markdown.Render(doc, renderer))
+
+	return template.HTML(safeHtml)
 }
 
 func ReadMarkdown(mdPath string) []byte {
