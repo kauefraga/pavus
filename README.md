@@ -9,10 +9,11 @@ Pavus is the **next-generation markdown tool**.
 
 Need to preview your markdown? Need templates for your README? It got your back!
 
-![GitHub Release](https://img.shields.io/github/v/release/kauefraga/pavus)
-![GitHub Downloads](https://img.shields.io/github/downloads/kauefraga/pavus/total)
-![GitHub License](https://img.shields.io/github/license/kauefraga/pavus)
-![GitHub Last Commit](https://img.shields.io/github/last-commit/kauefraga/pavus/main)
+[![GitHub Release](https://img.shields.io/github/v/release/kauefraga/pavus)](https://github.com/kauefraga/pavus/releases/latest)
+[![GitHub Downloads](https://img.shields.io/github/downloads/kauefraga/pavus/total)](https://github.com/kauefraga/pavus/releases)
+[![GitHub License](https://img.shields.io/github/license/kauefraga/pavus)](https://github.com/kauefraga/pavus/blob/main/LICENSE)
+[![GitHub Last Commit](https://img.shields.io/github/last-commit/kauefraga/pavus/main)](https://github.com/kauefraga/pavus/commits/main/)
+[![Go Reference](https://pkg.go.dev/badge/github.com/kauefraga/pavus.svg)](https://pkg.go.dev/github.com/kauefraga/pavus)
 
 [Getting started](#usage) •
 [Installation](#installation) •
