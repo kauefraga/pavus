@@ -45,7 +45,7 @@ Need to preview your markdown? Need templates for your README? It got your back!
 
 ## Mastering the CLI
 
-Like in <a href="https://github.com/kauefraga/ruke#mastering-the-cli" target="_blank">Ruke</a>, here you will find all about the command-line interface (available commands, descriptions, flags and aliases).
+Like in [Ruke](https://github.com/kauefraga/ruke#mastering-the-cli), here you will find all about the command-line interface (available commands, descriptions, flags and aliases).
 
 ## Roadmap
 
