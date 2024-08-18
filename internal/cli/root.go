@@ -17,12 +17,6 @@ func getRootCmd() *cobra.Command {
 		Example: "pavus\npavus path/to/markdown.md",
 		Args:    cobra.MaximumNArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			/* options
-			 * - serve the first markdown (current)
-			 * - serve all found files
-			 * - serve the ones with priority (like readmes)
-			 */
-
 			mdPath := lib.GetMarkdownPath(args)
 
 			if mdPath == "" {

@@ -2,7 +2,6 @@ package server
 
 import (
 	"fmt"
-	"html/template"
 	"net/http"
 	"os"
 
@@ -19,8 +18,8 @@ var upgrader = websocket.Upgrader{
 var clients = make(map[*websocket.Conn]bool)
 
 type Message struct {
-	Type    string        `json:"type"`
-	Content template.HTML `json:"content"`
+	Type    string `json:"type"`
+	Content string `json:"content"`
 }
 
 func newWebSocketHandler(mdPath string) func(w http.ResponseWriter, r *http.Request) {
@@ -57,7 +56,7 @@ func newWebSocketHandler(mdPath string) func(w http.ResponseWriter, r *http.Requ
 
 						message := Message{
 							Type:    "reload",
-							Content: lib.MdToHTML(lib.ReadMarkdown(mdPath)),
+							Content: string(lib.ReadMarkdown(mdPath)),
 						}
 
 						socket.WriteJSON(message)

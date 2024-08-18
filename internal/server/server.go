@@ -20,7 +20,7 @@ var layout embed.FS
 var assets embed.FS
 
 type LayoutData struct {
-	Content template.HTML
+	Content string
 }
 
 func ServeAndWatch(mdPath string) {
@@ -35,7 +35,7 @@ func ServeAndWatch(mdPath string) {
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		data := LayoutData{
-			Content: lib.MdToHTML(lib.ReadMarkdown(mdPath)),
+			Content: string(lib.ReadMarkdown(mdPath)),
 		}
 
 		err = tmpl.Execute(w, data)

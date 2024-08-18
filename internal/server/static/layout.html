@@ -7,13 +7,36 @@
   <link rel="icon" href="/static/icon.png" />
 </head>
 <body>
-  <article id="content">
+  <article id="content" class="markdown-body">
     {{ .Content }}
   </article>
 
-  <script>
-    const ws = new WebSocket('ws://localhost:3000/ws');
+  <script type="module">
+    import MarkdownIt from 'https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/+esm';
+    import { codeToHtml } from 'https://esm.sh/shiki@1.0.0'
+
+    const md = MarkdownIt({
+      html: true,
+      linkify: true,
+    });
+
+    const renderContent = (markdown) => {
+      content.innerHTML = md.render(markdown);
+      const codes = document.querySelectorAll('#content code');
+      codes.forEach(async (code) => {
+        const lang = code.className.split('-').pop() ?? 'sh'; // get 'ts' from class="language-ts"
+
+        code.innerHTML = await codeToHtml(code.innerHTML, {
+          lang,
+          theme: 'tokyo-night'
+        });
+      });
+    };
+
     const content = document.getElementById('content') ?? document.createElement('article');
+    renderContent(content.innerHTML);
+
+    const ws = new WebSocket('ws://localhost:3000/ws');
 
     ws.addEventListener('open', function(event) {
       console.log('Connected')
@@ -23,7 +46,7 @@
       const message = JSON.parse(event.data);
 
       if (message.type === 'reload') {
-        content.innerHTML = message.content;
+        renderContent(message.content);
       }
     });
   </script>
