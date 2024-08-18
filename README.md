@@ -1,11 +1,11 @@
 <table align="center">
 <tr>
-<td><img src="internal/server/static/icon.png" alt="Pavus' logo" width="128" height="128" /></td>
+<td><img src="internal/server/static/icon.png" alt="Pavus' logo" height="128" /></td>
 <td>
-      
+
 # Pavus
 
-Pavus is the **next-generation markdown tool**. 
+Pavus is the **next-generation markdown tool**.
 
 Need to preview your markdown? Need templates for your README? It got your back!
 
