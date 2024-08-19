@@ -50,6 +50,23 @@ Like in [Ruke](https://github.com/kauefraga/ruke#mastering-the-cli), here you wi
 
 ## Roadmap
 
+- Markdown preview
+  - [x] `pavus` or `pavus path/to.md`
+  - [x] Rendering (markdown to html)
+  - [x] Hot reloading
+  - [x] Syntax highlighting
+  - [ ] Images
+  - [ ] Default theme
+- Markdown templates
+  - [ ] `init` or `init --template "x"` (interactive)
+- Configuration
+  - [ ] Toml file
+  - [ ] Themes (markdown preview)
+  - [ ] Port (markdown preview)
+  - [ ] AI token
+- Markdown + AI
+  - [ ] Fill template gaps
+
 ## Contributing
 
 Feel free to contribute, opening an issue to report a bug, suggest a CLI change, an improvement or a feature.
