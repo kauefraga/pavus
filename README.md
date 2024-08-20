@@ -50,17 +50,21 @@ Like in [Ruke](https://github.com/kauefraga/ruke#mastering-the-cli), here you wi
 
 ## Roadmap
 
+A list of the features I want to implement, this should serve as a guide during development.
+
 - Markdown preview
   - [x] `pavus` or `pavus path/to.md`
-  - [x] Rendering (markdown to html)
-  - [x] Hot reloading
-  - [x] Syntax highlighting
+  - [x] Rendering (markdown to html, [markdown-it](https://github.com/markdown-it/markdown-it))
+  - [x] Hot reloading ([gorilla/websocket](https://github.com/gorilla/websocket))
+  - [x] Syntax highlighting ([shiki](https://github.com/shikijs/shiki)) 
+  - [ ] LaTeX ([KaTeX](https://katex.org/)?) and [Mermaidjs](https://mermaid.js.org/)
   - [ ] Images
   - [ ] Default theme
 - Markdown templates
-  - [ ] `init` or `init --template "x"` (interactive)
+  - [ ] `init` or `init --template "x"` - create markdown with a template and generate prompts to fill it (interactive)
+  - [ ] `add` or `add section` - append section (add at the end, interactive, available sections should be documented)
 - Configuration
-  - [ ] Toml file
+  - [ ] [Toml file](https://toml.io/en/v1.0.0) ([go-toml](https://github.com/pelletier/go-toml))
   - [ ] Themes (markdown preview)
   - [ ] Port (markdown preview)
   - [ ] AI token
