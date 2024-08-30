@@ -15,7 +15,7 @@ func getRootCmd() *cobra.Command {
 	rootCmd := &cobra.Command{
 		Use:     "pavus",
 		Short:   "The next-gen markdown tool",
-		Version: "1.0.2",
+		Version: "1.0.3",
 		Example: "pavus\npavus path/to/markdown.md",
 		Args:    cobra.MaximumNArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
