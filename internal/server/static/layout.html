@@ -5,6 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pavus</title>
   <link rel="icon" href="/static/icon.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.6.1/github-markdown.min.css" integrity="sha512-heNHQxAqmr9b5CZSB7/7NSC96qtb9HCeOKomgLFv9VLkH+B3xLgUtP73i1rM8Gpmfaxb7262LFLJaH/hKXyxyA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    * {
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #161b22; /* work around */
+    }
+
+    #content {
+      margin: 0 auto;
+      max-width: 768px;
+      padding: 24px 32px;
+    }
+  </style>
 </head>
 <body>
   <article id="content" class="markdown-body">
@@ -13,12 +30,14 @@
 
   <script type="module">
     import MarkdownIt from 'https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/+esm';
-    import { codeToHtml } from 'https://esm.sh/shiki@1.0.0'
+    import MarkdownItAnchor from 'https://cdn.jsdelivr.net/npm/markdown-it-anchor@9.1.0/+esm'
+    import { codeToHtml } from 'https://esm.sh/shiki@1.14.1';
 
     const md = MarkdownIt({
       html: true,
       linkify: true,
-    });
+    })
+      .use(MarkdownItAnchor);
 
     const renderContent = (markdown) => {
       content.innerHTML = md.render(markdown);
