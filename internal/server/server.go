@@ -23,9 +23,10 @@ type LayoutData struct {
 	Content string
 }
 
-func ServeAndWatch(mdPath string) {
+func ServeAndWatch(mdPath, assetDirectory string) {
 	http.HandleFunc("/ws", newWebSocketHandler(mdPath))
 	http.Handle("/static/", http.FileServer(http.FS(assets)))
+	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir(assetDirectory))))
 
 	tmpl, err := template.ParseFS(layout, "static/layout.html")
 	if err != nil {
