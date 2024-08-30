@@ -46,7 +46,7 @@ Need to preview your markdown? Need templates for your README? It got your back!
 
 ## Mastering the CLI
 
-Like in [Ruke](https://github.com/kauefraga/ruke#mastering-the-cli), here you will find all about the command-line interface (available commands, descriptions, flags and aliases).
+Here you will find all about the command-line interface (available commands, descriptions, flags and aliases).
 
 ## Roadmap
 
@@ -56,10 +56,10 @@ A list of the features I want to implement, this should serve as a guide during 
   - [x] `pavus` or `pavus path/to.md`
   - [x] Rendering (markdown to html, [markdown-it](https://github.com/markdown-it/markdown-it))
   - [x] Hot reloading ([gorilla/websocket](https://github.com/gorilla/websocket))
-  - [x] Syntax highlighting ([shiki](https://github.com/shikijs/shiki)) 
+  - [x] Syntax highlighting ([shiki](https://github.com/shikijs/shiki))
   - [ ] LaTeX ([KaTeX](https://katex.org/)?) and [Mermaidjs](https://mermaid.js.org/)
-  - [ ] Images
-  - [ ] Default theme
+  - [x] Images
+  - [x] Default theme
 - Markdown templates
   - [ ] `init` or `init --template "x"` - create markdown with a template and generate prompts to fill it (interactive)
   - [ ] `add` or `add section` - append section (add at the end, interactive, available sections should be documented)
@@ -73,7 +73,7 @@ A list of the features I want to implement, this should serve as a guide during 
 
 ## Contributing
 
-Feel free to contribute, opening an issue to report a bug, suggest a CLI change, an improvement or a feature.
+Feel free to contribute, opening an issue to report a bug or suggesting a CLI change, an improvement or a feature.
 
 ### How to contribute
 
