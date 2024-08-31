@@ -10,21 +10,14 @@ import (
 	"github.com/kauefraga/pavus/internal/lib"
 )
 
-// TODO: shutdown gracefully
-// TODO: add styles (css)
-
 //go:embed static/layout.html
 var layout embed.FS
 
 //go:embed static/*
 var assets embed.FS
 
-type LayoutData struct {
-	Content string
-}
-
 func ServeAndWatch(mdPath, assetDirectory string) {
-	http.HandleFunc("/ws", newWebSocketHandler(mdPath))
+	http.HandleFunc("/sse", newServerSentEventsHandler(mdPath))
 	http.Handle("/static/", http.FileServer(http.FS(assets)))
 	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir(assetDirectory))))
 
@@ -35,17 +28,14 @@ func ServeAndWatch(mdPath, assetDirectory string) {
 	}
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		data := LayoutData{
-			Content: string(lib.ReadMarkdown(mdPath)),
-		}
-
-		err = tmpl.Execute(w, data)
+		err = tmpl.Execute(w, template.HTML(string(lib.ReadMarkdown(mdPath))))
 		if err != nil {
 			fmt.Println("Error:", err)
 		}
 	})
 
-	fmt.Println("Waiting for you at http://localhost:3000... :)")
+	fmt.Println("[pavus] happy writing!")
+	fmt.Println("[pavus] waiting for you at http://localhost:3000... :)")
 	err = http.ListenAndServe(":3000", nil)
 	if err != nil {
 		fmt.Println("Error:", err)

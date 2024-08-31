@@ -25,7 +25,7 @@
 </head>
 <body>
   <article id="content" class="markdown-body">
-    {{ .Content }}
+    {{ . }}
   </article>
 
   <script type="module">
@@ -55,16 +55,12 @@
     const content = document.getElementById('content') ?? document.createElement('article');
     renderContent(content.innerHTML);
 
-    const ws = new WebSocket('ws://localhost:3000/ws');
+    const eventSource = new EventSource('/sse');
 
-    ws.addEventListener('open', function(event) {
-      console.log('Connected')
-    });
+    eventSource.addEventListener('reload', (event) => {
+      const message = JSON.parse(event.data)
 
-    ws.addEventListener('message', function(event) {
-      const message = JSON.parse(event.data);
-
-      if (message.type === 'reload') {
+      if (event.type === 'reload') {
         renderContent(message.content);
       }
     });

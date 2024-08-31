@@ -1,37 +1,25 @@
 package server
 
 import (
+	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 
 	"github.com/fsnotify/fsnotify"
-	"github.com/gorilla/websocket"
 	"github.com/kauefraga/pavus/internal/lib"
 )
 
-var upgrader = websocket.Upgrader{
-	ReadBufferSize:  1024,
-	WriteBufferSize: 1024,
-}
-
-var clients = make(map[*websocket.Conn]bool)
-
-type Message struct {
-	Type    string `json:"type"`
+type ReloadEventMessage struct {
 	Content string `json:"content"`
 }
 
-func newWebSocketHandler(mdPath string) func(w http.ResponseWriter, r *http.Request) {
+func newServerSentEventsHandler(mdPath string) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
-		socket, err := upgrader.Upgrade(w, r, nil)
-		if err != nil {
-			fmt.Println("Error: failed to upgrade connection (websocket)")
-			os.Exit(1)
-		}
-		defer socket.Close()
-
-		clients[socket] = true
+		w.Header().Set("Content-Type", "text/event-stream")
+		w.Header().Set("Cache-Control", "no-cache")
+		w.Header().Set("Connection", "keep-alive")
 
 		watcher, err := fsnotify.NewWatcher()
 		if err != nil {
@@ -54,12 +42,20 @@ func newWebSocketHandler(mdPath string) func(w http.ResponseWriter, r *http.Requ
 					if event.Has(fsnotify.Write) {
 						fmt.Println("[pavus] reloading due to changes...")
 
-						message := Message{
-							Type:    "reload",
+						message := ReloadEventMessage{
 							Content: string(lib.ReadMarkdown(mdPath)),
 						}
 
-						socket.WriteJSON(message)
+						encodedMessage, err := json.Marshal(message)
+						if err != nil {
+							log.Println("Error:", err)
+						}
+
+						eventName := "event: reload\n"
+						payloadMessage := fmt.Sprintf("data: %s\n\n", string(encodedMessage))
+
+						w.Write([]byte(eventName))
+						w.Write([]byte(payloadMessage))
 					}
 
 				case err, ok := <-watcher.Errors:
@@ -69,6 +65,8 @@ func newWebSocketHandler(mdPath string) func(w http.ResponseWriter, r *http.Requ
 					fmt.Println("error:", err)
 					os.Exit(1)
 				}
+
+				w.(http.Flusher).Flush()
 			}
 		}()
 
