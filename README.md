@@ -42,6 +42,10 @@ Need to preview your markdown? Need templates for your README? It got your back!
 
 ### Installation
 
+Installing via [pkg.go.dev](https://pkg.go.dev/github.com/kauefraga/pavus) is not available yet, but you can install a prebuilt binary for your platform.
+
+Check the [latest release page](https://github.com/kauefraga/pavus/releases/latest).
+
 ### Configuration
 
 ## Mastering the CLI
@@ -55,10 +59,10 @@ A list of the features I want to implement, this should serve as a guide during 
 - Markdown preview
   - [x] `pavus` or `pavus path/to.md`
   - [x] Rendering (markdown to html, [markdown-it](https://github.com/markdown-it/markdown-it))
-  - [x] Hot reloading ([gorilla/websocket](https://github.com/gorilla/websocket))
+  - [x] Hot reloading ([fsnotify](https://github.com/fsnotify/fsnotify) and server-sent events)
   - [x] Syntax highlighting ([shiki](https://github.com/shikijs/shiki))
   - [ ] LaTeX ([KaTeX](https://katex.org/)?) and [Mermaidjs](https://mermaid.js.org/)
-  - [x] Images
+  - [x] Images (need to adjust the image path in the markdown to point to the server)
   - [x] Default theme
 - Markdown templates
   - [ ] `init` or `init --template "x"` - create markdown with a template and generate prompts to fill it (interactive)
