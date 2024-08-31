@@ -15,6 +15,23 @@ type ReloadEventMessage struct {
 	Content string `json:"content"`
 }
 
+func sendReloadEvent(w http.ResponseWriter, mdPath string) {
+	message := ReloadEventMessage{
+		Content: string(lib.ReadMarkdown(mdPath)),
+	}
+
+	encodedMessage, err := json.Marshal(message)
+	if err != nil {
+		log.Println("Error:", err)
+	}
+
+	eventName := "event: reload\n"
+	payloadMessage := fmt.Sprintf("data: %s\n\n", string(encodedMessage))
+
+	w.Write([]byte(eventName))
+	w.Write([]byte(payloadMessage))
+}
+
 func newServerSentEventsHandler(mdPath string) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "text/event-stream")
@@ -31,8 +48,17 @@ func newServerSentEventsHandler(mdPath string) func(w http.ResponseWriter, r *ht
 
 		fmt.Println("[pavus] watching:", mdPath)
 
+		reloadToFixHappened := false
+
 		go func() {
 			for {
+				if !reloadToFixHappened {
+					reloadToFixHappened = true
+
+					sendReloadEvent(w, mdPath)
+					w.(http.Flusher).Flush()
+				}
+
 				select {
 				case event, ok := <-watcher.Events:
 					if !ok {
@@ -42,20 +68,7 @@ func newServerSentEventsHandler(mdPath string) func(w http.ResponseWriter, r *ht
 					if event.Has(fsnotify.Write) {
 						fmt.Println("[pavus] reloading due to changes...")
 
-						message := ReloadEventMessage{
-							Content: string(lib.ReadMarkdown(mdPath)),
-						}
-
-						encodedMessage, err := json.Marshal(message)
-						if err != nil {
-							log.Println("Error:", err)
-						}
-
-						eventName := "event: reload\n"
-						payloadMessage := fmt.Sprintf("data: %s\n\n", string(encodedMessage))
-
-						w.Write([]byte(eventName))
-						w.Write([]byte(payloadMessage))
+						sendReloadEvent(w, mdPath)
 					}
 
 				case err, ok := <-watcher.Errors:
