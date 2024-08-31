@@ -28,7 +28,7 @@ func ServeAndWatch(mdPath, assetDirectory string) {
 	}
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		err = tmpl.Execute(w, template.HTML(string(lib.ReadMarkdown(mdPath))))
+		err = tmpl.Execute(w, template.HTML(lib.ReadMarkdown(mdPath)))
 		if err != nil {
 			fmt.Println("Error:", err)
 		}
