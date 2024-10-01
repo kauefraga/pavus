@@ -1,4 +1,4 @@
-package cli
+package cmd
 
 import (
 	"fmt"
@@ -10,8 +10,6 @@ import (
 )
 
 func getRootCmd() *cobra.Command {
-	var assetDirectory string
-
 	rootCmd := &cobra.Command{
 		Use:     "pavus",
 		Short:   "The next-gen markdown tool",
@@ -19,8 +17,10 @@ func getRootCmd() *cobra.Command {
 		Example: "pavus\npavus path/to/markdown.md",
 		Args:    cobra.MaximumNArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
+			flagAssetDirectory, _ := cmd.Flags().GetString("asset-directory")
+
 			mdPath := lib.GetMarkdownPath(args)
-			assetDirectory := lib.GetAssetDirectory(assetDirectory)
+			assetDirectory := lib.GetAssetDirectory(flagAssetDirectory)
 
 			if mdPath == "" {
 				fmt.Println("Error: there is no markdown to serve")
@@ -32,16 +32,16 @@ func getRootCmd() *cobra.Command {
 		},
 	}
 
-	rootCmd.Flags().StringVarP(&assetDirectory, "asset-directory", "a", "", "Define assets directory to be served")
+	rootCmd.Flags().StringP("asset-directory", "a", "", "define assets directory to be served")
 
 	return rootCmd
 }
 
 func Execute() {
-	err := getRootCmd().Execute()
+	rootCmd := getRootCmd()
 
-	if err != nil {
-		fmt.Println(err)
+	if err := rootCmd.Execute(); err != nil {
+		fmt.Println("Error:", err)
 		os.Exit(1)
 	}
 }

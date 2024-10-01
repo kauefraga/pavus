@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/kauefraga/pavus/internal/cli"
+	"github.com/kauefraga/pavus/internal/cmd"
 )
 
 func main() {
-	cli.Execute()
+	cmd.Execute()
 }
