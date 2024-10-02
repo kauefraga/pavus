@@ -1,13 +1,12 @@
-<table align="center">
-<tr>
-<td><img src="internal/server/static/icon.png" alt="Pavus' logo" height="128" /></td>
-<td>
+<div align="center">
+
+<img src="internal/server/static/icon.png" alt="Pavus' logo" height="128" />
 
 # Pavus
 
 Pavus is the **next-generation markdown tool**.
 
-Need to preview your markdown? Need templates for your README? It got your back!
+Need to preview your markdown? Templates for your README? It got your back!
 
 [![GitHub Release](https://img.shields.io/github/v/release/kauefraga/pavus)](https://github.com/kauefraga/pavus/releases/latest)
 [![GitHub Downloads](https://img.shields.io/github/downloads/kauefraga/pavus/total)](https://github.com/kauefraga/pavus/releases)
@@ -18,22 +17,19 @@ Need to preview your markdown? Need templates for your README? It got your back!
 [Getting started](#usage) •
 [Installation](#installation) •
 [Configuration](#configuration) •
-[Pix me a coffee](#pix-me-a-coffee)
-<br/><br/>
+[Contributing](#contributing)
 
-</td>
-</tr>
-</table>
+</div>
 
 ## Key Features
 
-- Pleasant DX: intuitive, descriptive messages and colorful outputs
+Here's what I'll be working on, what to expect
+
 - Preview your markdown with hot reloading out-of-the-box
-- Just a single lightweight binary with all the batteries included
-<!--
-- Configurable, but awesome defaults
-- Templates, so you don't need to come with the new idea
--->
+- Just a single binary with all the batteries included
+- Tailored DX: descriptive messages, interactive mode, flags and colorful outputs
+- Configurable, but awesome defaults (not available yet)
+- Templates, so you can focus on content (not available yet)
 
 > [!IMPORTANT]
 > Work in progress... Just wait!
@@ -77,14 +73,16 @@ A list of the features I want to implement, this should serve as a guide during 
 
 ## Contributing
 
-Feel free to contribute, opening an issue to report a bug or suggesting a CLI change, an improvement or a feature.
+Feel free to contribute [opening an issue](https://github.com/kauefraga/pavus/issues/new) to report a bug or suggesting a CLI change, an improvement or a feature.
 
 ### How to contribute
 
-1. Fork this repository
+1. Fork this project
 2. Clone your fork on your machine
-3. Make your changes, commit and push them
-4. Open a pull request (write a descriptive message about what you changed)
+3. Setup the development environment
+4. Make your changes and commit them following [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/)
+5. Run `git push` to sync the changes
+6. Open a pull request specifying what you did
 
 ## License
 
@@ -92,6 +90,4 @@ This project is licensed under the MIT License - See the [LICENSE](https://githu
 
 ---
 
-## Pix me a coffee
-
-If this project helped you, consider to [pix me a coffee](https://www.pixme.bio/kauefraga)! 💜 🇧🇷
+Se você gostou do projeto e ele te ajudou, considere [me apoiar um café](https://www.pixme.bio/kauefraga) ☕ 🇧🇷
