@@ -4,7 +4,7 @@
 
 # Pavus
 
-Pavus is the **next-generation markdown tool**.
+**Next-generation markdown tool**
 
 Need to preview your markdown? Templates for your README? It got your back!
 
