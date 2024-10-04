@@ -8,7 +8,7 @@
 
 Need to preview your markdown? Templates for your README? It got your back!
 
-[![GitHub Release](https://img.shields.io/github/v/release/kauefraga/pavus)](https://github.com/kauefraga/pavus/releases/latest)
+[![GitHub Release](https://img.shields.io/github/v/release/kauefraga/pavus?label=latest+version)](https://github.com/kauefraga/pavus/releases/latest)
 [![GitHub Downloads](https://img.shields.io/github/downloads/kauefraga/pavus/total)](https://github.com/kauefraga/pavus/releases)
 [![GitHub License](https://img.shields.io/github/license/kauefraga/pavus)](https://github.com/kauefraga/pavus/blob/main/LICENSE)
 [![GitHub Last Commit](https://img.shields.io/github/last-commit/kauefraga/pavus/main)](https://github.com/kauefraga/pavus/commits/main/)
