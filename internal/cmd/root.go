@@ -1,9 +1,9 @@
 package cmd
 
 import (
-	"fmt"
 	"os"
 
+	"github.com/fatih/color"
 	"github.com/kauefraga/pavus/internal/lib"
 	"github.com/kauefraga/pavus/internal/server"
 	"github.com/spf13/cobra"
@@ -23,14 +23,13 @@ func getRootCmd() *cobra.Command {
 			assetDirectory := lib.GetAssetDirectory(flagAssetDirectory)
 
 			if mdPath == "" {
-				fmt.Println("Error: there is no markdown to serve")
-				cmd.Help()
-				os.Exit(0)
+				color.Red("Error: there is no markdown to serve")
+				os.Exit(1)
 			}
 
 			err := server.ServeAndWatch(mdPath, assetDirectory)
 			if err != nil {
-				fmt.Println("Error:", err)
+				color.Red("Error: %s", err)
 				os.Exit(1)
 			}
 		},
@@ -45,7 +44,7 @@ func Execute() {
 	rootCmd := getRootCmd()
 
 	if err := rootCmd.Execute(); err != nil {
-		fmt.Println("Error:", err)
+		color.Red("Error: %s", err)
 		os.Exit(1)
 	}
 }

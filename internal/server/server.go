@@ -2,10 +2,12 @@ package server
 
 import (
 	"embed"
-	"fmt"
+	"errors"
 	"html/template"
 	"net/http"
 	"os"
+
+	"github.com/fatih/color"
 )
 
 //go:embed static/layout.html
@@ -21,25 +23,24 @@ func ServeAndWatch(mdPath, assetDirectory string) error {
 
 	tmpl, err := template.ParseFS(layout, "static/layout.html")
 	if err != nil {
-		fmt.Println("Error: failed to parse the layout template file")
-		os.Exit(1)
+		return errors.New("failed to parse the layout template file")
 	}
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		md, err := os.ReadFile(mdPath)
 		if err != nil {
-			fmt.Println("Error: failed to read the markdown file")
-			os.Exit(1)
+			color.Red("Error: failed to read the markdown file\n%s", err)
+			return
 		}
 
 		err = tmpl.Execute(w, template.HTML(md))
 		if err != nil {
-			fmt.Println("Error:", err)
+			color.Red("Error: %s", err)
+			return
 		}
 	})
 
-	fmt.Println("[pavus] happy writing!")
-	fmt.Println("[pavus] waiting for you at http://localhost:3000... :)")
+	color.Yellow("[pavus] listening on http://localhost:3000 :)")
 
 	return http.ListenAndServe(":3000", nil)
 }

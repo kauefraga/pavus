@@ -2,17 +2,19 @@ package lib
 
 import (
 	"io/fs"
-	"log"
 	"os"
 	"path/filepath"
 	"regexp"
+
+	"github.com/fatih/color"
 )
 
 // Verify if a file is a markdown one
 func isMarkdown(filename string) bool {
 	isMarkdown, err := regexp.MatchString(`^.*\.(md)$`, filename)
 	if err != nil {
-		log.Fatalln(err)
+		color.Red("Error: %s", err)
+		os.Exit(1)
 	}
 
 	return isMarkdown
@@ -31,7 +33,8 @@ func findFirstMarkdownFile() string {
 		return err
 	})
 	if err != nil {
-		log.Fatalln(err)
+		color.Red("Error: %s", err)
+		os.Exit(1)
 	}
 
 	return markdownPath

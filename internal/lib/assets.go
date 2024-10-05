@@ -2,17 +2,19 @@ package lib
 
 import (
 	"io/fs"
-	"log"
 	"os"
 	"path/filepath"
 	"regexp"
+
+	"github.com/fatih/color"
 )
 
 // Verify if a file is an asset (.png, .jpg/.jpeg, .gif, .webp, .avif, .mp4)
 func isAsset(filename string) bool {
 	isAsset, err := regexp.MatchString(`^.*\.(png|jpg|jpeg|gif|webp|avif|mp4)$`, filename)
 	if err != nil {
-		log.Fatalln(err)
+		color.Red("Error: %s", err)
+		os.Exit(1)
 	}
 
 	return isAsset
@@ -30,7 +32,8 @@ func findAssetDirectory(root string) string {
 		return err
 	})
 	if err != nil {
-		log.Fatalln(err)
+		color.Red("Error: %s", err)
+		os.Exit(1)
 	}
 
 	return assetDirectory

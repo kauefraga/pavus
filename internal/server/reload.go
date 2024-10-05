@@ -3,10 +3,10 @@ package server
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 
+	"github.com/fatih/color"
 	"github.com/fsnotify/fsnotify"
 )
 
@@ -17,7 +17,7 @@ type ReloadEventMessage struct {
 func sendReloadEvent(w http.ResponseWriter, mdPath string) {
 	md, err := os.ReadFile(mdPath)
 	if err != nil {
-		fmt.Println("Error: failed to read the markdown file")
+		color.Red("Error: failed to read the markdown file")
 		os.Exit(1)
 	}
 
@@ -27,7 +27,7 @@ func sendReloadEvent(w http.ResponseWriter, mdPath string) {
 
 	encodedMessage, err := json.Marshal(message)
 	if err != nil {
-		log.Println("Error:", err)
+		color.Red("Error: %s", err)
 	}
 
 	eventName := "event: reload\n"
@@ -45,13 +45,13 @@ func newReloadEventHandler(mdPath string) func(w http.ResponseWriter, r *http.Re
 
 		watcher, err := fsnotify.NewWatcher()
 		if err != nil {
-			fmt.Println("Error:", err)
+			color.Red("Error: %s", err)
 		}
 		defer watcher.Close()
 
 		done := make(chan bool)
 
-		fmt.Println("[pavus] watching:", mdPath)
+		color.Yellow("[pavus] watching: %s", mdPath)
 
 		reloadToFixHappened := false
 
@@ -71,8 +71,7 @@ func newReloadEventHandler(mdPath string) func(w http.ResponseWriter, r *http.Re
 					}
 
 					if event.Has(fsnotify.Write) {
-						fmt.Println("[pavus] reloading due to changes...")
-
+						color.Green("[pavus] reloading due to changes...")
 						sendReloadEvent(w, mdPath)
 					}
 
@@ -80,7 +79,7 @@ func newReloadEventHandler(mdPath string) func(w http.ResponseWriter, r *http.Re
 					if !ok {
 						return
 					}
-					fmt.Println("error:", err)
+					color.Red("Error: %s", err)
 					os.Exit(1)
 				}
 
@@ -90,7 +89,7 @@ func newReloadEventHandler(mdPath string) func(w http.ResponseWriter, r *http.Re
 
 		err = watcher.Add(mdPath)
 		if err != nil {
-			fmt.Println(err)
+			color.Red("Error: %s", err)
 			os.Exit(1)
 		}
 
