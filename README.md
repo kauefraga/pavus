@@ -23,8 +23,6 @@ Need to preview your markdown? Templates for your README? It got your back!
 
 ## Key Features
 
-Here's what I'll be working on, what to expect
-
 - Preview your markdown with hot reloading out-of-the-box
 - Just a single binary with all the batteries included
 - Tailored DX: descriptive messages, interactive mode, flags and colorful outputs
@@ -38,38 +36,18 @@ Here's what I'll be working on, what to expect
 
 ### Installation
 
-Installing via [pkg.go.dev](https://pkg.go.dev/github.com/kauefraga/pavus) is not available yet, but you can install a prebuilt binary for your platform.
+- Via [pkg.go.dev](https://pkg.go.dev/github.com/kauefraga/pavus) (not available yet)
+- Prebuilt binary
 
-Check the [latest release page](https://github.com/kauefraga/pavus/releases/latest).
+Check the [latest release](https://github.com/kauefraga/pavus/releases/latest) page to install the prebuilt binary for your platform.
+
+If there is no binary for your platform you can build it yourself, see [how to build](#how-to-build).
 
 ### Configuration
 
-## Mastering the CLI
+### Mastering the CLI
 
-Here you will find all about the command-line interface (available commands, descriptions, flags and aliases).
-
-## Roadmap
-
-A list of the features I want to implement, this should serve as a guide during development.
-
-- Markdown preview
-  - [x] `pavus` or `pavus path/to.md`
-  - [x] Rendering (markdown to html, [markdown-it](https://github.com/markdown-it/markdown-it))
-  - [x] Hot reloading ([fsnotify](https://github.com/fsnotify/fsnotify) and server-sent events)
-  - [x] Syntax highlighting ([shiki](https://github.com/shikijs/shiki))
-  - [ ] LaTeX ([KaTeX](https://katex.org/)?) and [Mermaidjs](https://mermaid.js.org/)
-  - [x] Images (need to adjust the image path in the markdown to point to the server)
-  - [x] Default theme
-- Markdown templates
-  - [ ] `init` or `init --template "x"` - create markdown with a template and generate prompts to fill it (interactive)
-  - [ ] `add` or `add section` - append section (add at the end, interactive, available sections should be documented)
-- Configuration
-  - [ ] [Toml file](https://toml.io/en/v1.0.0) ([go-toml](https://github.com/pelletier/go-toml))
-  - [ ] Themes (markdown preview)
-  - [ ] Port (markdown preview)
-  - [ ] AI token
-- Markdown + AI
-  - [ ] Fill template gaps
+Reference about the command-line interface: available commands, descriptions, flags and aliases.
 
 ## Contributing
 
@@ -79,10 +57,40 @@ Feel free to contribute [opening an issue](https://github.com/kauefraga/pavus/is
 
 1. Fork this project
 2. Clone your fork on your machine
-3. Setup the development environment
+3. Setup the [dev environment](#how-to-setup-dev-environment)
 4. Make your changes and commit them following [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/)
 5. Run `git push` to sync the changes
 6. Open a pull request specifying what you did
+
+### How to setup dev environment
+
+- Have [Go](https://go.dev/) installed (Preferably [1.22.5](go.mod))
+
+Install the dependencies
+
+```sh
+go mod download
+```
+
+And/or just run the project
+
+```sh
+go run cmd/main.go
+```
+
+### How to build
+
+With [Go](https://go.dev/) installed, building pavus should be as easy as running the following command
+
+```sh
+go build cmd/main.go -o pavus
+```
+
+However, running the command below should generate a more lightweight binary
+
+```sh
+CGO_ENABLED=0 go build -ldflags='-w -s' cmd/main.go -o pavus
+```
 
 ## License
 
