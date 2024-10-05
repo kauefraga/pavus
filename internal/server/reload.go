@@ -8,7 +8,6 @@ import (
 	"os"
 
 	"github.com/fsnotify/fsnotify"
-	"github.com/kauefraga/pavus/internal/lib"
 )
 
 type ReloadEventMessage struct {
@@ -16,8 +15,14 @@ type ReloadEventMessage struct {
 }
 
 func sendReloadEvent(w http.ResponseWriter, mdPath string) {
+	md, err := os.ReadFile(mdPath)
+	if err != nil {
+		fmt.Println("Error: failed to read the markdown file")
+		os.Exit(1)
+	}
+
 	message := ReloadEventMessage{
-		Content: string(lib.ReadMarkdown(mdPath)),
+		Content: string(md),
 	}
 
 	encodedMessage, err := json.Marshal(message)
@@ -32,7 +37,7 @@ func sendReloadEvent(w http.ResponseWriter, mdPath string) {
 	w.Write([]byte(payloadMessage))
 }
 
-func newServerSentEventsHandler(mdPath string) func(w http.ResponseWriter, r *http.Request) {
+func newReloadEventHandler(mdPath string) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "text/event-stream")
 		w.Header().Set("Cache-Control", "no-cache")

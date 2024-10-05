@@ -28,7 +28,11 @@ func getRootCmd() *cobra.Command {
 				os.Exit(0)
 			}
 
-			server.ServeAndWatch(mdPath, assetDirectory)
+			err := server.ServeAndWatch(mdPath, assetDirectory)
+			if err != nil {
+				fmt.Println("Error:", err)
+				os.Exit(1)
+			}
 		},
 	}
 

@@ -6,8 +6,6 @@ import (
 	"html/template"
 	"net/http"
 	"os"
-
-	"github.com/kauefraga/pavus/internal/lib"
 )
 
 //go:embed static/layout.html
@@ -16,8 +14,8 @@ var layout embed.FS
 //go:embed static/*
 var assets embed.FS
 
-func ServeAndWatch(mdPath, assetDirectory string) {
-	http.HandleFunc("/sse", newServerSentEventsHandler(mdPath))
+func ServeAndWatch(mdPath, assetDirectory string) error {
+	http.HandleFunc("/sse", newReloadEventHandler(mdPath))
 	http.Handle("/static/", http.FileServer(http.FS(assets)))
 	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir(assetDirectory))))
 
@@ -28,7 +26,13 @@ func ServeAndWatch(mdPath, assetDirectory string) {
 	}
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		err = tmpl.Execute(w, template.HTML(lib.ReadMarkdown(mdPath)))
+		md, err := os.ReadFile(mdPath)
+		if err != nil {
+			fmt.Println("Error: failed to read the markdown file")
+			os.Exit(1)
+		}
+
+		err = tmpl.Execute(w, template.HTML(md))
 		if err != nil {
 			fmt.Println("Error:", err)
 		}
@@ -36,9 +40,6 @@ func ServeAndWatch(mdPath, assetDirectory string) {
 
 	fmt.Println("[pavus] happy writing!")
 	fmt.Println("[pavus] waiting for you at http://localhost:3000... :)")
-	err = http.ListenAndServe(":3000", nil)
-	if err != nil {
-		fmt.Println("Error:", err)
-		os.Exit(1)
-	}
+
+	return http.ListenAndServe(":3000", nil)
 }

@@ -1,7 +1,6 @@
 package lib
 
 import (
-	"fmt"
 	"io/fs"
 	"log"
 	"os"
@@ -53,14 +52,4 @@ func GetMarkdownPath(args []string) string {
 	}
 
 	return findFirstMarkdownFile()
-}
-
-func ReadMarkdown(mdPath string) []byte {
-	md, err := os.ReadFile(mdPath)
-	if err != nil {
-		fmt.Println("Error: failed to read the markdown file")
-		os.Exit(1)
-	}
-
-	return md
 }
