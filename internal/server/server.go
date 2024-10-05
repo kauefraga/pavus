@@ -8,6 +8,7 @@ import (
 	"os"
 
 	"github.com/fatih/color"
+	"github.com/pkg/browser"
 )
 
 //go:embed static/layout.html
@@ -16,7 +17,7 @@ var layout embed.FS
 //go:embed static/*
 var assets embed.FS
 
-func ServeAndWatch(mdPath, assetDirectory string) error {
+func ServeAndWatch(mdPath, assetDirectory string, openBrowser bool) error {
 	http.HandleFunc("/sse", newReloadEventHandler(mdPath))
 	http.Handle("/static/", http.FileServer(http.FS(assets)))
 	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir(assetDirectory))))
@@ -41,6 +42,17 @@ func ServeAndWatch(mdPath, assetDirectory string) error {
 	})
 
 	color.Yellow("[pavus] listening on http://localhost:3000 :)")
+
+	if openBrowser {
+		color.Yellow("[pavus] opening preview in the browser...")
+
+		browser.Stdout = nil
+		browser.Stderr = nil
+		err := browser.OpenURL("http://localhost:3000")
+		if err != nil {
+			color.Red("Error: failed to open the preview in the browser")
+		}
+	}
 
 	return http.ListenAndServe(":3000", nil)
 }

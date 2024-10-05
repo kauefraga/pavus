@@ -27,7 +27,9 @@ func getRootCmd() *cobra.Command {
 				os.Exit(1)
 			}
 
-			err := server.ServeAndWatch(mdPath, assetDirectory)
+			openBrowser, _ := cmd.Flags().GetBool("open-browser")
+
+			err := server.ServeAndWatch(mdPath, assetDirectory, openBrowser)
 			if err != nil {
 				color.Red("Error: %s", err)
 				os.Exit(1)
@@ -35,7 +37,8 @@ func getRootCmd() *cobra.Command {
 		},
 	}
 
-	rootCmd.Flags().StringP("asset-directory", "a", "", "define assets directory to be served")
+	rootCmd.Flags().StringP("asset-directory", "a", "", "assets directory to be served")
+	rootCmd.Flags().BoolP("open-browser", "o", false, "open preview in the browser")
 
 	return rootCmd
 }
