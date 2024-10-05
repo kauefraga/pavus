@@ -1,25 +1,13 @@
-<div align="center">
-
-<img src="internal/server/static/icon.png" alt="Pavus' logo" height="128" />
-
-# Pavus
+# `pavus` [![GitHub Release](https://img.shields.io/github/v/release/kauefraga/pavus?label=latest+version)](https://github.com/kauefraga/pavus/releases/latest) [![GitHub Last Commit](https://img.shields.io/github/last-commit/kauefraga/pavus/main)](https://github.com/kauefraga/pavus/commits/main/) [![Go Reference](https://pkg.go.dev/badge/github.com/kauefraga/pavus)](https://pkg.go.dev/github.com/kauefraga/pavus)
 
 **Next-generation markdown tool**
 
 Need to preview your markdown? Templates for your README? It got your back!
 
-[![GitHub Release](https://img.shields.io/github/v/release/kauefraga/pavus?label=latest+version)](https://github.com/kauefraga/pavus/releases/latest)
-[![GitHub Downloads](https://img.shields.io/github/downloads/kauefraga/pavus/total)](https://github.com/kauefraga/pavus/releases)
-[![GitHub License](https://img.shields.io/github/license/kauefraga/pavus)](https://github.com/kauefraga/pavus/blob/main/LICENSE)
-[![GitHub Last Commit](https://img.shields.io/github/last-commit/kauefraga/pavus/main)](https://github.com/kauefraga/pavus/commits/main/)
-[![Go Reference](https://pkg.go.dev/badge/github.com/kauefraga/pavus.svg)](https://pkg.go.dev/github.com/kauefraga/pavus)
-
 [Getting started](#usage) •
 [Installation](#installation) •
 [Configuration](#configuration) •
 [Contributing](#contributing)
-
-</div>
 
 ## Key Features
 
