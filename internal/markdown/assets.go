@@ -1,4 +1,4 @@
-package lib
+package markdown
 
 import (
 	"io/fs"

@@ -1,4 +1,4 @@
-package lib
+package markdown
 
 import (
 	"io/fs"
@@ -42,7 +42,7 @@ func findFirstMarkdownFile() string {
 
 // If the first argument is a valid markdown path, return it,
 // otherwise find and return the first markdown file path
-func GetMarkdownPath(args []string) string {
+func GetPath(args []string) string {
 	if len(args) > 0 {
 		info, err := os.Stat(args[0])
 		if err != nil {

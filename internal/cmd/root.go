@@ -4,7 +4,7 @@ import (
 	"os"
 
 	"github.com/fatih/color"
-	"github.com/kauefraga/pavus/internal/lib"
+	"github.com/kauefraga/pavus/internal/markdown"
 	"github.com/kauefraga/pavus/internal/server"
 	"github.com/spf13/cobra"
 )
@@ -19,8 +19,8 @@ func getRootCmd() *cobra.Command {
 		Run: func(cmd *cobra.Command, args []string) {
 			flagAssetDirectory, _ := cmd.Flags().GetString("asset-directory")
 
-			mdPath := lib.GetMarkdownPath(args)
-			assetDirectory := lib.GetAssetDirectory(flagAssetDirectory)
+			mdPath := markdown.GetPath(args)
+			assetDirectory := markdown.GetAssetDirectory(flagAssetDirectory)
 
 			if mdPath == "" {
 				color.Red("Error: there is no markdown to serve")
