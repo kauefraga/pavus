@@ -2,7 +2,7 @@
 
 **Next-generation markdown tool**
 
-Preview your markdown file, generate it from templates and more!
+Preview your markdown file, generate one from templates and more. Add pavus in your toolchain!
 
 [Getting started](#usage) •
 [Installation](#installation) •
@@ -41,6 +41,7 @@ Try `pavus --help` and `pavus help [command]`.
 
 - `pavus [markdown]` - preview a markdown file in the browser with hot reload
 - `pavus init` - create a markdown file based in a template
+- `pavus templates` - list available markdown templates
 
 ##### Aliases
 
@@ -56,7 +57,7 @@ Preview a markdown file, in this case, "README.md"
 pavus README.md
 ```
 
-If no file is passed to Pavus, it will automatically look for one
+If no file is passed to pavus, it will automatically look for one
 
 ```sh
 pavus
@@ -101,6 +102,14 @@ pavus init -t tooling -o my-docs.md
 
 # fill the missing extension (.md) and only prompts for the template name
 pavus init -o my-docs
+```
+
+###### Templates command
+
+List pavus available markdown templates
+
+```sh
+pavus templates
 ```
 
 ### Mastering the configs

@@ -24,7 +24,7 @@ func getInitCmd() *cobra.Command {
 			if t == "" {
 				prompt := promptui.Select{
 					Label: "Choose a template",
-					Items: []string{"Tooling", "API Reference", "Service", "Package", "Onboarding"},
+					Items: markdown.GetAvailableTemplates(),
 				}
 
 				_, result, err := prompt.Run()

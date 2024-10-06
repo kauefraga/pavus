@@ -47,6 +47,7 @@ func Execute() {
 	rootCmd := getRootCmd()
 
 	rootCmd.AddCommand(getInitCmd())
+	rootCmd.AddCommand(getTemplatesCmd())
 
 	if err := rootCmd.Execute(); err != nil {
 		color.Red("Error: %s", err)
