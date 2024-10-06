@@ -16,6 +16,8 @@ Preview your markdown file, generate it from templates and more!
 - Configurable - but awesome defaults (not available yet)
 - Templates - just focus on your content (not available yet)
 
+Want to know what's coming? Take a look at the [roadmap](https://github.com/kauefraga/pavus/issues/3).
+
 ## Usage
 
 ### Installation
@@ -102,7 +104,7 @@ And/or just run the project
 go run cmd/main.go
 ```
 
-### How to build
+## How to build
 
 With [Go](https://go.dev/) installed, building pavus should be as easy as running the following command
 
@@ -115,6 +117,8 @@ However, running the command below should generate a more lightweight binary
 ```sh
 CGO_ENABLED=0 go build -ldflags='-w -s' cmd/main.go -o pavus
 ```
+
+In the [`build.sh`](build.sh) you can see how the release binaries are being built.
 
 ## License
 
