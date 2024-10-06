@@ -11,16 +11,23 @@ import (
 	"github.com/pkg/browser"
 )
 
-//go:embed static/layout.html
-var layout embed.FS
+var (
+	//go:embed static/layout.html
+	layout embed.FS
 
-//go:embed static/*
-var assets embed.FS
+	//go:embed static/icon.png
+	icon []byte
+)
 
 func ServeAndWatch(mdPath, assetDirectory string, openBrowser bool) error {
 	http.HandleFunc("/sse", newReloadEventHandler(mdPath))
-	http.Handle("/static/", http.FileServer(http.FS(assets)))
 	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir(assetDirectory))))
+
+	http.HandleFunc("/icon.png", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "image/png")
+		w.WriteHeader(http.StatusOK)
+		w.Write(icon)
+	})
 
 	tmpl, err := template.ParseFS(layout, "static/layout.html")
 	if err != nil {
