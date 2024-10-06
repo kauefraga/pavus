@@ -14,7 +14,7 @@ func getRootCmd() *cobra.Command {
 		Use:     "pavus",
 		Short:   "The next-gen markdown tool",
 		Version: "1.0.3",
-		Example: "pavus\npavus path/to/markdown.md",
+		Example: "  pavus\n  pavus create",
 		Args:    cobra.MaximumNArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
 			flagAssetDirectory, _ := cmd.Flags().GetString("asset-directory")
@@ -45,6 +45,8 @@ func getRootCmd() *cobra.Command {
 
 func Execute() {
 	rootCmd := getRootCmd()
+
+	rootCmd.AddCommand(getInitCmd())
 
 	if err := rootCmd.Execute(); err != nil {
 		color.Red("Error: %s", err)

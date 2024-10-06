@@ -6,15 +6,15 @@ Preview your markdown file, generate it from templates and more!
 
 [Getting started](#usage) •
 [Installation](#installation) •
-[Configuration](#configuration) •
+[Templates](#templates) •
 [Contributing](#contributing)
 
 ## Key Features
 
 - Simplicity and power - just a single binary with all the batteries included
 - Tailored experience - descriptive messages, interactive mode and colorful outputs
+- Templates - just focus on your content
 - Configurable - but awesome defaults (not available yet)
-- Templates - just focus on your content (not available yet)
 
 Want to know what's coming? Take a look at the [roadmap](https://github.com/kauefraga/pavus/issues/3).
 
@@ -29,21 +29,26 @@ Check the [latest release](https://github.com/kauefraga/pavus/releases/latest) p
 
 If there is no binary for your platform you can build it yourself, see [how to build](#how-to-build).
 
-### Configuration
-
 ### Templates
 
 ### Mastering the CLI
 
 Reference about the command-line interface: available commands, examples, flags and aliases.
 
-Pavus itself has help menu, try `pavus --help`.
+Try `pavus --help` and `pavus help [command]`.
 
-###### Available commands
+##### Available commands
 
 - `pavus [markdown]` - preview a markdown file in the browser with hot reload
+- `pavus init` - create a markdown file based in a template
 
-###### Examples
+##### Aliases
+
+- `pavus init`, `pavus i`, `pavus create`, `pavus c`
+
+##### Examples
+
+###### Root command (preview)
 
 Preview a markdown file, in this case, "README.md"
 
@@ -74,6 +79,31 @@ The flag `-a --asset-directory <directory>` can be used to specify the assets di
 
 pavus README.md --asset-directory public/
 ```
+
+###### Init command
+
+Create a markdown file based in a template interactively
+
+It'll ask you for a template name and an output file name
+
+```sh
+pavus init
+```
+
+Looking for flags?
+
+```sh
+# non-interactive
+pavus init --template "tooling" --output "my-docs.md"
+
+# shorthand flags
+pavus init -t tooling -o my-docs.md
+
+# fill the missing extension (.md) and only prompts for the template name
+pavus init -o my-docs
+```
+
+### Mastering the configs
 
 ## Contributing
 

@@ -1,6 +1,7 @@
-# markdowns, except README
+# markdown files, except README and templates
 *.md
 !README.md
+!internal/markdown/templates/*.md
 
 # build output
 bin/
