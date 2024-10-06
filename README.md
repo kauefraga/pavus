@@ -2,7 +2,7 @@
 
 **Next-generation markdown tool**
 
-Need to preview your markdown? Templates for your README? It got your back!
+Preview your markdown file, generate it from templates and more!
 
 [Getting started](#usage) •
 [Installation](#installation) •
@@ -11,14 +11,10 @@ Need to preview your markdown? Templates for your README? It got your back!
 
 ## Key Features
 
-- Preview your markdown with hot reloading out-of-the-box
-- Just a single binary with all the batteries included
-- Tailored DX: descriptive messages, interactive mode, flags and colorful outputs
-- Configurable, but awesome defaults (not available yet)
-- Templates, so you can focus on content (not available yet)
-
-> [!IMPORTANT]
-> Work in progress... Just wait!
+- Simplicity and power - just a single binary with all the batteries included
+- Tailored experience - descriptive messages, interactive mode and colorful outputs
+- Configurable - but awesome defaults (not available yet)
+- Templates - just focus on your content (not available yet)
 
 ## Usage
 
@@ -33,9 +29,49 @@ If there is no binary for your platform you can build it yourself, see [how to b
 
 ### Configuration
 
+### Templates
+
 ### Mastering the CLI
 
-Reference about the command-line interface: available commands, descriptions, flags and aliases.
+Reference about the command-line interface: available commands, examples, flags and aliases.
+
+Pavus itself has help menu, try `pavus --help`.
+
+###### Available commands
+
+- `pavus [markdown]` - preview a markdown file in the browser with hot reload
+
+###### Examples
+
+Preview a markdown file, in this case, "README.md"
+
+```sh
+pavus README.md
+```
+
+If no file is passed to Pavus, it will automatically look for one
+
+```sh
+pavus
+```
+
+The flag `-o --open-browser` can be used to open the preview in your default browser
+
+```sh
+pavus README.md --open-browser
+```
+
+The flag `-a --asset-directory <directory>` can be used to specify the assets directory (images and other resources being used in the markdown)
+
+```sh
+# - README.md
+# - public/
+#   - demo.gif
+#   - header.png
+#   - ...
+
+pavus README.md --asset-directory public/
+```
 
 ## Contributing
 
