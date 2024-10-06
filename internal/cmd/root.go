@@ -13,8 +13,8 @@ func getRootCmd() *cobra.Command {
 	rootCmd := &cobra.Command{
 		Use:     "pavus",
 		Short:   "The next-gen markdown tool",
-		Version: "1.0.3",
-		Example: "  pavus\n  pavus create",
+		Version: "1.1.0",
+		Example: "  pavus\n  pavus init",
 		Args:    cobra.MaximumNArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
 			flagAssetDirectory, _ := cmd.Flags().GetString("asset-directory")

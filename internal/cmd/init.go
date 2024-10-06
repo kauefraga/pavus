@@ -16,7 +16,9 @@ func getInitCmd() *cobra.Command {
 		Use:     "init",
 		Aliases: []string{"i", "create", "c"},
 		Short:   "Create a markdown file based in a template",
-		Example: "",
+		Example: `  pavus init
+  pavus i --output my-docs
+  pavus create -t tooling -o my-tooling-docs`,
 		Run: func(cmd *cobra.Command, args []string) {
 			t, _ := cmd.Flags().GetString("template")
 			if t == "" {
