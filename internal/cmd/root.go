@@ -13,7 +13,7 @@ func getRootCmd() *cobra.Command {
 	rootCmd := &cobra.Command{
 		Use:     "pavus",
 		Short:   "The next-gen markdown tool",
-		Version: "1.1.0",
+		Version: "1.2.0",
 		Example: "  pavus\n  pavus init",
 		Args:    cobra.MaximumNArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
