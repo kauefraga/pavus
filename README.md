@@ -165,4 +165,4 @@ This project is licensed under the MIT License - See the [LICENSE](https://githu
 
 ---
 
-Se você gostou do projeto e ele te ajudou, considere [me apoiar um café](https://www.pixme.bio/kauefraga) ☕ 🇧🇷
+Se você gostou do projeto e ele te ajudou, considere [me apoiar um café](https://pixmeacoffee.vercel.app/kauefraga) ☕ 🇧🇷
